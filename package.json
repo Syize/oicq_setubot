@@ -1,0 +1,18 @@
+{
+  "name": "oicq_erobot",
+  "version": "1.0.0",
+  "description": "基于qicq 的色图机器人",
+  "main": "index.js",
+  "dependencies": {
+    "oicq": "^1.13.3",
+    "wx-voice": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sagiri",
+  "license": "GPL"
+}
