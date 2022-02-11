@@ -2,11 +2,13 @@ import { createClient, segment } from "oicq";
 import { stdin } from "process";
 import * as https from "https";
 import * as process from "child_process";
+import { existsSync } from "fs"
 
-let qq = 123456 //replace this to your bot qq id
+let qq = 123456 // replace this to your bot qq id
 let bot = createClient(qq)
-let master = 123456 //replace this to your own qq id
-
+let master = 123456 // replace this to your own qq id
+let storePath = "/home/syize/Downloads/setu" // replace this to your own image store path
+// 不知道这个是干什么的
 bot.on("system.login.slider", (data) => {
     stdin.once("data", (input) => {
         bot.sliderLogin(input.toString());
@@ -17,30 +19,38 @@ bot.on("system.online", ()=>{
     console.log("Logged in!")
 })
 
-//remember to change download path to your own path
-function DownloadPicPublic(path: string, image_name, callback, user_id) {
-    process.exec("proxychains4 -q wget " + path + " -P /home/syize/Downloads/setu", (error, stdout, stderr)=>{
+// 下载、发送图片的函数
+// remember to change download path to your own path
+function DownloadPicPublic(url: string, image_name, callback, user_id) {
+    // if image already exists, pass download
+    if (existsSync(storePath + image_name)) {
+        console.log("[INFO] image exists")
+        callback.sendGroupMsg(user_id, segment.image(storePath + image_name, true, 15))
+        return
+    }
+    process.exec("proxychains4 -q wget " + url + " -P " + storePath, (error, stdout, stderr)=>{
         if (error !== null){
             callback.sendGroupMsg(user_id, '获取图片失败')
         }else{
-            callback.sendGroupMsg(user_id, segment.image("/home/syize/Downloads/setu/" + image_name, true, 15))
+            callback.sendGroupMsg(user_id, segment.image(storePath + image_name, true, 15))
         }
     })
 }
 
+// 群消息监听器
 // 真的垃圾，完全跑不动
 bot.on('message.group', (data)=>{
     if(/好康/.test(data.raw_message)){
         let chunk = []
         let url = ""
-        //let url = 'https://api.lolicon.app/setu/v2?r18=1'
-        let p = data.raw_message.match("^好康的+(.+)")
+        // let url = 'https://api.lolicon.app/setu/v2?r18=1'
+        let p = data.raw_message.match("好康的+(.+)")
         if (p) {
             url = 'https://api.lolicon.app/setu/v2?size=regular&keyword=' + p[1]
         }else{
             url = 'https://api.lolicon.app/setu/v2?size=regular'
         }
-        //let url = 'http://127.0.0.1:40000/'
+        // let url = 'http://127.0.0.1:40000/'
         try {
             https.get(url, (res) => {
                 console.log('get')
