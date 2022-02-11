@@ -64,8 +64,8 @@ bot.on('message.group', function (data) {
                     res.on('end', function () {
                         var json_data = Buffer.concat(chunk_1).toString();
                         var parseData = JSON.parse(json_data);
-                        console.log('JSON:');
-                        console.log(parseData);
+                        // console.log('JSON:')
+                        // console.log(parseData)
                         try {
                             if (parseData.error == '') {
                                 var msg_text = '';
@@ -73,7 +73,7 @@ bot.on('message.group', function (data) {
                                 msg_text += "作者: " + parseData.data[0].author + "\n";
                                 msg_text += "PID: " + parseData.data[0].pid;
                                 // must use proxy to get pic
-                                console.log(parseData.data[0].urls.regular);
+                                // console.log(parseData.data[0].urls.regular)
                                 bot.sendGroupMsg(data.group_id, msg_text);
                                 DownloadPicPublic(parseData.data[0].urls.regular, parseData.data[0].pid + "_p0_master1200.jpg", bot, data.group_id);
                             }
