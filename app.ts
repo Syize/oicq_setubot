@@ -85,6 +85,7 @@ bot.on('message.group', (data)=>{
                             }
                         }catch(e){
                             console.error(e.message)
+                            bot.sendGroupMsg(data.group_id, "没有找到图片")
                         }
                     }
                 )}else{

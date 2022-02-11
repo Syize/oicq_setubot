@@ -83,6 +83,7 @@ bot.on('message.group', function (data) {
                         }
                         catch (e) {
                             console.error(e.message);
+                            bot.sendGroupMsg(data.group_id, "没有找到图片");
                         }
                     });
                 }
