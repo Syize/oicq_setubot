@@ -8,7 +8,7 @@ var fs_1 = require("fs");
 var qq = 123456; // replace this to your bot qq id
 var bot = (0, oicq_1.createClient)(qq);
 var master = 123456; // replace this to your own qq id
-var storePath = "/home/syize/Downloads/setu"; // replace this to your own image store path
+var storePath = "/home/syize/Downloads/setu/"; // replace this to your own image store path
 // 不知道这个是干什么的
 bot.on("system.login.slider", function (data) {
     process_1.stdin.once("data", function (input) {
