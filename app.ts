@@ -7,7 +7,7 @@ import { existsSync } from "fs"
 let qq = 123456 // replace this to your bot qq id
 let bot = createClient(qq)
 let master = 123456 // replace this to your own qq id
-let storePath = "/home/syize/Downloads/setu" // replace this to your own image store path
+let storePath = "/home/syize/Downloads/setu/" // replace this to your own image store path
 // 不知道这个是干什么的
 bot.on("system.login.slider", (data) => {
     stdin.once("data", (input) => {
